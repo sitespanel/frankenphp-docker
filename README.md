@@ -1,5 +1,7 @@
 # Production-Ready FrankenPHP Docker Images with Custom Caddy Builds
 
+[![image](https://github.com/sitespanel/frankenphp-docker/actions/workflows/image.yml/badge.svg)](https://github.com/sitespanel/frankenphp-docker/actions/workflows/image.yml) [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/sitespanel/frankenphp-docker/badge)](https://scorecard.dev/viewer/?uri=github.com/sitespanel/frankenphp-docker)
+
 > **SitesPanel image source.** Google Cloud Build builds this image and publishes it to the GitHub Container Registry as `ghcr.io/sitespanel/frankenphp`; see [CLOUDBUILD.md](CLOUDBUILD.md).
 
 
