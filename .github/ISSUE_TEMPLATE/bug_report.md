@@ -7,7 +7,7 @@ assignees: ''
 ---
 
 **Image tag(s) affected**
-<!-- e.g. europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp:8.4 -->
+<!-- e.g. ghcr.io/sitespanel/frankenphp:8.4 -->
 
 **Describe the bug**
 <!-- A clear description of what's wrong -->

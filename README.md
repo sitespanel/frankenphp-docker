@@ -1,11 +1,11 @@
 # Production-Ready FrankenPHP Docker Images with Custom Caddy Builds
 
-> **SitesPanel image source.** SitesPanel builds this image with Google Cloud Build and serves it from Artifact Registry (`europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp`); see [CLOUDBUILD.md](CLOUDBUILD.md). Replace `PROJECT` with SitesPanel's Google Cloud project.
+> **SitesPanel image source.** Google Cloud Build builds this image and publishes it to the GitHub Container Registry as `ghcr.io/sitespanel/frankenphp`; see [CLOUDBUILD.md](CLOUDBUILD.md).
 
 
 This repository contains the build instructions for a set of customized, production-ready **FrankenPHP** Docker images. They are built on the official `dunglas/frankenphp` base and include a powerful, custom-compiled Caddy web server, a comprehensive set of pre-installed PHP extensions, and common utilities to support modern PHP applications including **Laravel**, **Symfony**, and **WordPress**.
 
-The images are built by Google Cloud Build and published to SitesPanel's Artifact Registry for multiple PHP versions (see [CLOUDBUILD.md](CLOUDBUILD.md)).
+The images are built by Google Cloud Build and published to the GitHub Container Registry (`ghcr.io/sitespanel`) for multiple PHP versions (see [CLOUDBUILD.md](CLOUDBUILD.md)).
 
 ## ✨ Why This Image?
 
@@ -33,7 +33,7 @@ version: '3.8'
 services:
   frankenphp:
     # Replace with your desired PHP version tag
-    image: europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp:8.4
+    image: ghcr.io/sitespanel/frankenphp:8.4
     ports:
       - "80:80"      # HTTP
       - "443:443"    # HTTPS
@@ -76,11 +76,11 @@ This project builds and maintains images for the following PHP versions:
 
 Each image is tagged with multiple schemes for flexibility:
 
-*   `europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp:latest`: Always points to the most recent build of the PHP 8.5 image.
-*   `europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp:<version>` (e.g., `europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp:8.4`): A convenient tag for a specific major version.
-*   `europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp:<version>-trixie` (e.g., `europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp:8.4-trixie`): The same image with the base OS in the tag (Debian 13).
+*   `ghcr.io/sitespanel/frankenphp:latest`: Always points to the most recent build of the PHP 8.5 image.
+*   `ghcr.io/sitespanel/frankenphp:<version>` (e.g., `ghcr.io/sitespanel/frankenphp:8.4`): A convenient tag for a specific major version.
+*   `ghcr.io/sitespanel/frankenphp:<version>-trixie` (e.g., `ghcr.io/sitespanel/frankenphp:8.4-trixie`): The same image with the base OS in the tag (Debian 13).
 
-Every PHP version is built on Debian 13 (trixie) only. bookworm is built again only for a PHP version whose base image has no trixie variant. The old `-bookworm` tags stay in Artifact Registry but are no longer updated.
+Every PHP version is built on Debian 13 (trixie) only. bookworm is built again only for a PHP version whose base image has no trixie variant. The old `-bookworm` tags stay in the registry but are no longer updated.
 
 It is recommended to use a specific version tag (like `8.4-trixie`) in production environments for stability.
 
@@ -145,7 +145,7 @@ A: Absolutely. You can mount your own `php.ini` file into the container (start f
 **Q: How do I add extensions not in your list?**
 A: Since we use the `mlocati/php-extension-installer` utility, you can easily install any other extension via a custom `Dockerfile` layer:
 ```dockerfile
-FROM europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp:8.4
+FROM ghcr.io/sitespanel/frankenphp:8.4
 RUN install-php-extensions my-custom-extension
 ```
 
@@ -165,7 +165,7 @@ A: FrankenPHP's built-in Caddy server obtains TLS certificates automatically via
 ## Related Images & Tools
 
 <!-- BEGIN GENERATED: related (from images.yaml in the org .github repository; do not edit by hand) -->
-Every image is built by Google Cloud Build and published to SitesPanel's Artifact Registry (`europe-docker.pkg.dev/PROJECT/sitespanel-images`), with SLSA provenance and an SBOM per image.
+Every image is built by Google Cloud Build and published to the GitHub Container Registry (`ghcr.io/sitespanel`), with an SBOM attached to each image.
 
 | Repository | Images | Description |
 |---|---|---|
