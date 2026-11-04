@@ -40,7 +40,8 @@ Thanks for your interest in improving these Docker images!
 ├── scripts/
 │   └── install-extensions.sh     # Extension filtering and install script
 ├── php.ini.example               # Example hardened PHP config (copy to php.ini and mount)
-└── .github/workflows/            # CI/CD pipeline
+├── cloudbuild.yaml             # Cloud Build: build, scan, SBOM, push with provenance
+└── cloudbuild-pr.yaml          # Cloud Build: pull-request build and scan, no push
 ```
 
 ## Code Style

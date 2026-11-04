@@ -72,7 +72,7 @@ FROM dunglas/frankenphp:${FRANKENPHP_VERSION}-php${PHP_VERSION}-${DEBIAN_RELEASE
 
 LABEL org.opencontainers.image.title="frankenphp" \
       org.opencontainers.image.description="FrankenPHP with a custom Caddy build, 51 PHP extensions, Composer, WP-CLI, the MariaDB client and Node.js" \
-      org.opencontainers.image.source="https://github.com/morsalin1342/frankenphp-docker" \
+      org.opencontainers.image.source="https://github.com/sitespanel/frankenphp-docker" \
       org.opencontainers.image.licenses="MIT"
 
 # Copy the custom-built FrankenPHP binary from the builder stage

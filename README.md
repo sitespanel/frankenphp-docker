@@ -1,14 +1,11 @@
 # Production-Ready FrankenPHP Docker Images with Custom Caddy Builds
 
-> **SitesPanel copy.** This repository is SitesPanel's copy of the image source. SitesPanel builds it with Google Cloud Build and serves it from Artifact Registry (`europe`); see [CLOUDBUILD.md](CLOUDBUILD.md). The Docker Hub publishing of the original repository does not run here.
+> **SitesPanel image source.** SitesPanel builds this image with Google Cloud Build and serves it from Artifact Registry (`europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp`); see [CLOUDBUILD.md](CLOUDBUILD.md). Replace `PROJECT` with SitesPanel's Google Cloud project.
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/morsalin1342/frankenphp.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/morsalin1342/frankenphp)
-[![GitHub Stars](https://img.shields.io/github/stars/morsalin1342/frankenphp-docker?style=for-the-badge&logo=github)](https://github.com/morsalin1342/frankenphp-docker)
-[![License](https://img.shields.io/github/license/morsalin1342/frankenphp-docker?style=for-the-badge)](https://github.com/morsalin1342/frankenphp-docker/blob/master/LICENSE)
 
 This repository contains the build instructions for a set of customized, production-ready **FrankenPHP** Docker images. They are built on the official `dunglas/frankenphp` base and include a powerful, custom-compiled Caddy web server, a comprehensive set of pre-installed PHP extensions, and common utilities to support modern PHP applications including **Laravel**, **Symfony**, and **WordPress**.
 
-The images are automatically built and published to [Docker Hub](https://hub.docker.com/r/morsalin1342/frankenphp) for multiple PHP versions via GitHub Actions.
+The images are built by Google Cloud Build and published to SitesPanel's Artifact Registry for multiple PHP versions (see [CLOUDBUILD.md](CLOUDBUILD.md)).
 
 ## ✨ Why This Image?
 
@@ -36,7 +33,7 @@ version: '3.8'
 services:
   frankenphp:
     # Replace with your desired PHP version tag
-    image: morsalin1342/frankenphp:8.4
+    image: europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp:8.4
     ports:
       - "80:80"      # HTTP
       - "443:443"    # HTTPS
@@ -79,11 +76,11 @@ This project builds and maintains images for the following PHP versions:
 
 Each image is tagged with multiple schemes for flexibility:
 
-*   `morsalin1342/frankenphp:latest`: Always points to the most recent build of the PHP 8.5 image.
-*   `morsalin1342/frankenphp:<version>` (e.g., `morsalin1342/frankenphp:8.4`): A convenient tag for a specific major version.
-*   `morsalin1342/frankenphp:<version>-trixie` (e.g., `morsalin1342/frankenphp:8.4-trixie`): The same image with the base OS in the tag (Debian 13).
+*   `europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp:latest`: Always points to the most recent build of the PHP 8.5 image.
+*   `europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp:<version>` (e.g., `europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp:8.4`): A convenient tag for a specific major version.
+*   `europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp:<version>-trixie` (e.g., `europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp:8.4-trixie`): The same image with the base OS in the tag (Debian 13).
 
-Every PHP version is built on Debian 13 (trixie) only. bookworm is built again only for a PHP version whose base image has no trixie variant. The old `-bookworm` tags stay on Docker Hub but are no longer updated.
+Every PHP version is built on Debian 13 (trixie) only. bookworm is built again only for a PHP version whose base image has no trixie variant. The old `-bookworm` tags stay in Artifact Registry but are no longer updated.
 
 It is recommended to use a specific version tag (like `8.4-trixie`) in production environments for stability.
 
@@ -148,7 +145,7 @@ A: Absolutely. You can mount your own `php.ini` file into the container (start f
 **Q: How do I add extensions not in your list?**
 A: Since we use the `mlocati/php-extension-installer` utility, you can easily install any other extension via a custom `Dockerfile` layer:
 ```dockerfile
-FROM morsalin1342/frankenphp:8.4
+FROM europe-docker.pkg.dev/PROJECT/sitespanel-images/frankenphp:8.4
 RUN install-php-extensions my-custom-extension
 ```
 
@@ -168,21 +165,21 @@ A: FrankenPHP's built-in Caddy server obtains TLS certificates automatically via
 ## Related Images & Tools
 
 <!-- BEGIN GENERATED: related (from images.yaml in the org .github repository; do not edit by hand) -->
-Every image is published under `morsalin1342` (personal) and `easydigital` (organization), from the same build.
+Every image is built by Google Cloud Build and published to SitesPanel's Artifact Registry (`europe-docker.pkg.dev/PROJECT/sitespanel-images`), with SLSA provenance and an SBOM per image.
 
 | Repository | Images | Description |
 |---|---|---|
-| [caddy-docker](https://github.com/morsalin1342/caddy-docker) | `morsalin1342/caddy` · `easydigital/caddy` | Standalone Caddy with WAF, rate limiting & caching |
-| [php-docker](https://github.com/morsalin1342/php-docker) | `morsalin1342/php` · `easydigital/php` | Traditional PHP-FPM & CLI images |
-| [nginx-docker](https://github.com/morsalin1342/nginx-docker) | `morsalin1342/nginx` · `easydigital/nginx` | nginx with ModSecurity 3, Brotli, zstd & GeoIP2 |
-| [apache-docker](https://github.com/morsalin1342/apache-docker) | `morsalin1342/apache` · `easydigital/apache` | Apache as a static server or php-fpm application server, no PHP inside |
+| [caddy-docker](https://github.com/sitespanel/caddy-docker) | `sitespanel-images/caddy` | Standalone Caddy with WAF, rate limiting & caching |
+| [php-docker](https://github.com/sitespanel/php-docker) | `sitespanel-images/php` | Traditional PHP-FPM & CLI images |
+| [nginx-docker](https://github.com/sitespanel/nginx-docker) | `sitespanel-images/nginx` | nginx with ModSecurity 3, Brotli, zstd & GeoIP2 |
+| [apache-docker](https://github.com/sitespanel/apache-docker) | `sitespanel-images/apache` | Apache as a static server or php-fpm application server, no PHP inside |
 <!-- END GENERATED: related -->
 
 ---
 
 ## Feedback and Issues
 
-If you have suggestions, find a bug, or want to request a new extension, please [open an issue](https://github.com/morsalin1342/frankenphp-docker/issues) on the GitHub repository.
+If you have suggestions, find a bug, or want to request a new extension, please [open an issue](https://github.com/sitespanel/frankenphp-docker/issues) on the GitHub repository.
 
 ---
 

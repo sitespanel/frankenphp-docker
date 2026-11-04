@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   frankenphp:
-    image: morsalin1342/frankenphp:8.4
+    image: ${SITESPANEL_REGISTRY:-europe-docker.pkg.dev/PROJECT/sitespanel-images}/frankenphp:8.4
     ports:
       - "80:80"
       - "443:443"
