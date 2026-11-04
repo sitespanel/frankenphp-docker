@@ -107,9 +107,13 @@ RUN set -eu; \
 # against a pinned fingerprint. MariaDB 11.8 and later ship no mysql-named
 # commands, so small wrappers run the mariadb tools under their own names (a
 # bare symlink makes every call print a "Deprecated program name" notice).
+# Debian security fixes released after the FrankenPHP image was built are applied
+# first (`apt-get upgrade`), so the build's critical-vulnerability scan does not wait
+# for the next upstream rebuild.
 RUN set -eux; \
     export DEBIAN_FRONTEND=noninteractive; \
     apt-get update; \
+    apt-get upgrade -y --no-install-recommends; \
     apt-get install -y --no-install-recommends ca-certificates curl gnupg; \
     install -d -m 0755 /etc/apt/keyrings; \
     curl -fsSL https://mariadb.org/mariadb_release_signing_key.asc -o /etc/apt/keyrings/mariadb.asc; \
