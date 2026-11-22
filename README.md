@@ -72,7 +72,6 @@ This project builds and maintains images for the following PHP versions:
 *   **8.5** (Also tagged as `latest`)
 *   **8.4**
 *   **8.3**
-*   **8.2**
 
 ### Tagging Strategy
 
