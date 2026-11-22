@@ -160,8 +160,8 @@ These are absent from the images; add them in your own image if you need them.
 
 | Component | Version |
 |---|---|
-| FrankenPHP | 1.13.0 |
-| Caddy | 2.11.7 |
+| FrankenPHP | 1.14.0 |
+| Caddy | 2.11.9 |
 
 The `frankenphp` binary is a custom build made with `xcaddy` (Go build tags `nobadger,nomysql,nopgx,nomercure`; the Mercure hub is left out). It keeps the file capability `cap_net_bind_service=ep`, so a container that drops all capabilities must add `NET_BIND_SERVICE` back. These Caddy modules are compiled in, each pinned to an explicit version in the Dockerfile:
 
@@ -192,6 +192,6 @@ List them in any image with `frankenphp list-modules --versions`.
 | `MARIADB_SERIES` | `12.3` | MariaDB client series |
 | `MARIADB_KEY_FPR` | pinned | Expected fingerprint of MariaDB's release signing key |
 | `WP_CLI_VERSION`, `WP_CLI_SHA256` | `2.12.0`, pinned | WP-CLI release and its checksum |
-| `FRANKENPHP_VERSION` | `1.13` | FrankenPHP release line of the base images |
-| `CADDY_BUILDER_VERSION` | `2.11.7` | Caddy release of the `xcaddy` builder |
+| `FRANKENPHP_VERSION` | `1.14.0` | FrankenPHP release of the builder and runner images |
+| `CADDY_BUILDER_VERSION` | `2.11.9` | Caddy release of the `xcaddy` builder and of the Caddy it builds |
 | `SOUIN_VERSION` | `v1.7.9` | Souin release built into the binary |

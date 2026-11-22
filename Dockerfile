@@ -5,11 +5,12 @@ ARG NODE_VERSION=24
 # Debian release of the base image. Only trixie is built; use bookworm here only
 # for a PHP version whose base image has no trixie variant.
 ARG DEBIAN_RELEASE=trixie
-# FrankenPHP release line of the base images (dunglas/frankenphp 1.13 and later
+# FrankenPHP release of the base images, the builder and the runner alike, so the binary is built
+# on the same release it runs on (dunglas/frankenphp 1.13 and later
 # reload a changed config that contains php_server without crashing).
-ARG FRANKENPHP_VERSION=1.13
+ARG FRANKENPHP_VERSION=1.14.0
 # Caddy release of the xcaddy builder; it matches the Caddy inside that FrankenPHP line.
-ARG CADDY_BUILDER_VERSION=2.11.7
+ARG CADDY_BUILDER_VERSION=2.11.9
 # Souin release built into the binary; each build otherwise takes the latest.
 ARG SOUIN_VERSION=v1.7.9
 # MariaDB release series of the client tools, installed from MariaDB's own apt
@@ -26,9 +27,12 @@ ARG WP_CLI_SHA256=ce34ddd838f7351d6759068d09793f26755463b4a4610a5a5c0a97b68220d8
 FROM caddy:${CADDY_BUILDER_VERSION}-builder AS xcaddy
 
 # ==> 1. Builder Stage <==
-# This stage compiles a custom FrankenPHP binary with specific Caddy modules.
-FROM dunglas/frankenphp:builder-php${PHP_VERSION}-${DEBIAN_RELEASE} AS builder
+# This stage compiles a custom FrankenPHP binary with specific Caddy modules. Its
+# image is the same FrankenPHP release as the runner's (the unversioned builder
+# tag moved to a newer release than the runner and mixed the two).
+FROM dunglas/frankenphp:${FRANKENPHP_VERSION}-builder-php${PHP_VERSION}-${DEBIAN_RELEASE} AS builder
 ARG SOUIN_VERSION
+ARG CADDY_BUILDER_VERSION
 
 # Copy xcaddy from the official Caddy builder image
 COPY --from=xcaddy /usr/bin/xcaddy /usr/bin/xcaddy
@@ -43,7 +47,9 @@ COPY --from=xcaddy /usr/bin/xcaddy /usr/bin/xcaddy
 # hub is compiled in whatever the plugin list says. Vulcain, also AGPL-3.0,
 # needs no tag: nothing imports its caddy package once the --with line is gone,
 # so it never registers.
+# xcaddy builds the Caddy release named here; without CADDY_VERSION it takes the latest one.
 RUN CGO_ENABLED=1 \
+    CADDY_VERSION=v${CADDY_BUILDER_VERSION} \
     XCADDY_SETCAP=1 \
     XCADDY_GO_BUILD_FLAGS="-ldflags='-w -s' -tags=nobadger,nomysql,nopgx,nomercure" \
     CGO_CFLAGS=$(php-config --includes) \
@@ -145,6 +151,7 @@ RUN set -eux; \
     done; \
     curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash -; \
     apt-get install -y --no-install-recommends nodejs; \
+    npm install -g --no-fund --no-audit npm@12.2.3; \
     rm -rf /var/lib/apt/lists/*
 
 # ==> 4. Install PHP Extensions <==
