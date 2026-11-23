@@ -1,0 +1,5 @@
+# ARG source (see .github/upstream-check.py)
+FRANKENPHP_VERSION github:php/frankenphp
+CADDY_BUILDER_VERSION github:caddyserver/caddy
+SOUIN_VERSION github:darkweak/souin
+WP_CLI_VERSION github:wp-cli/wp-cli
