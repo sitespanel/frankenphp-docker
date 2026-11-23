@@ -86,8 +86,9 @@ jobs:
             org.opencontainers.image.description=SitesPanel FrankenPHP images: Caddy and PHP 8.3 to 8.5 in one app server.
           load: true
           push: false
-          # The weekly rebuild exists to pick up base-image and package fixes: it skips the cache and pulls the base again.
-          no-cache: ${{ github.event_name == 'schedule' }}
+          # A build that can publish (push to main, the weekly rebuild, a manual run) skips the cache and pulls the base again,
+          # so the package upgrade layer takes the security fixes released since the last build. Pull requests keep the cache.
+          no-cache: ${{ github.event_name != 'pull_request' }}
           pull: true
           cache-from: type=gha,scope=${{ matrix.id }}
           cache-to: type=gha,mode=max,scope=${{ matrix.id }}
