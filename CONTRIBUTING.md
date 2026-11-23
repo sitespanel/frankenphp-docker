@@ -26,7 +26,7 @@ Thanks for your interest in improving these Docker images!
    docker build -t test-image .
    docker run --rm test-image php -m
    ```
-4. Open a PR against `master` with a clear description
+4. Open a PR against `main` with a clear description
 
 ## Project Structure
 
