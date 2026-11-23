@@ -185,3 +185,7 @@ If you have suggestions, find a bug, or want to request a new extension, please 
 ---
 
 ⭐ **If this project helps you, consider giving it a star!**
+
+## Licence
+
+MIT for this repository's build files ([LICENSE](LICENSE)). The image packages FrankenPHP (MIT), Caddy and its modules (Caddy is Apache-2.0; each module keeps its own licence), PHP (the PHP License 3.01), its extensions, Node.js and Debian packages, each under its own licence (`/usr/share/doc/*/copyright` in the image for the Debian ones).
