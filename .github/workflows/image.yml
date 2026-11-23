@@ -1,4 +1,4 @@
-# Builds the SitesPanel frankenphp image (SitesPanel panel ADR-0065, amended 2026-11-04).
+# Builds the SitesPanel frankenphp image.
 # Every image is scanned with Trivy before anything is pushed. A push to main and the weekly rebuild publish to
 # ghcr.io/sitespanel/frankenphp with this workflow's own token, then attach a signed build-provenance attestation and an SBOM
 # attestation to each digest. Pull requests build and scan only; they get no write permission.
