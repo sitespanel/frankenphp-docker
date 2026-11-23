@@ -144,7 +144,7 @@ These are absent from the images; add them in your own image if you need them.
 
 | Tool | Version | Notes |
 |---|---|---|
-| PHP | 8.5.11 (ZTS) | The tag selects the version: 8.2, 8.3, 8.4 or 8.5. |
+| PHP | 8.5.11 (ZTS) | The tag selects the version: 8.3, 8.4 or 8.5. |
 | Composer | 2.10.3 |  |
 | WP-CLI | 2.12.0 | A pinned release, checked against its published SHA-256 at build time (`WP_CLI_VERSION`, `WP_CLI_SHA256`). |
 | Node.js / npm | 24.21.0 / 11.19.0 | Major version set by the `NODE_VERSION` build argument (default 24). |
@@ -160,8 +160,8 @@ These are absent from the images; add them in your own image if you need them.
 
 | Component | Version |
 |---|---|
-| FrankenPHP | 1.13.0 |
-| Caddy | 2.11.7 |
+| FrankenPHP | 1.14.0 |
+| Caddy | 2.11.9 |
 
 The `frankenphp` binary is a custom build made with `xcaddy` (Go build tags `nobadger,nomysql,nopgx,nomercure`; the Mercure hub is left out). It keeps the file capability `cap_net_bind_service=ep`, so a container that drops all capabilities must add `NET_BIND_SERVICE` back. These Caddy modules are compiled in, each pinned to an explicit version in the Dockerfile:
 
@@ -186,12 +186,12 @@ List them in any image with `frankenphp list-modules --versions`.
 
 | Argument | Default | Meaning |
 |---|---|---|
-| `PHP_VERSION` | `8.4` | PHP branch: 8.2, 8.3, 8.4 or 8.5 |
+| `PHP_VERSION` | `8.4` | PHP branch: 8.3, 8.4 or 8.5 |
 | `DEBIAN_RELEASE` | `trixie` | `trixie` (the only one built) or `bookworm` for a PHP version without a trixie base image |
 | `NODE_VERSION` | `24` | Node.js major version |
 | `MARIADB_SERIES` | `12.3` | MariaDB client series |
 | `MARIADB_KEY_FPR` | pinned | Expected fingerprint of MariaDB's release signing key |
 | `WP_CLI_VERSION`, `WP_CLI_SHA256` | `2.12.0`, pinned | WP-CLI release and its checksum |
-| `FRANKENPHP_VERSION` | `1.13` | FrankenPHP release line of the base images |
-| `CADDY_BUILDER_VERSION` | `2.11.7` | Caddy release of the `xcaddy` builder |
+| `FRANKENPHP_VERSION` | `1.14.0` | FrankenPHP release of the builder and runner images |
+| `CADDY_BUILDER_VERSION` | `2.11.9` | Caddy release of the `xcaddy` builder and of the Caddy it builds |
 | `SOUIN_VERSION` | `v1.7.9` | Souin release built into the binary |

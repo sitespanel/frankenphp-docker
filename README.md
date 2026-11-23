@@ -72,7 +72,6 @@ This project builds and maintains images for the following PHP versions:
 *   **8.5** (Also tagged as `latest`)
 *   **8.4**
 *   **8.3**
-*   **8.2**
 
 ### Tagging Strategy
 
@@ -107,7 +106,7 @@ The `frankenphp` binary is custom-compiled with the following additional Caddy m
 *   **DNS Challenge Providers**: `vultr`, `azure`, `googleclouddns`, `digitalocean`, `cloudflare`, `route53`.
 *   **Souin Storage Providers** (v0.0.20): `go-redis`, `otter`, `simplefs`.
 
-FrankenPHP is 1.13.0 on Caddy 2.11.7. Every module is pinned to an explicit version in the `Dockerfile`; the exact versions are listed in [EXTENSIONS.md](EXTENSIONS.md).
+FrankenPHP is 1.14.0 on Caddy 2.11.9. Every module is pinned to an explicit version in the `Dockerfile`; the exact versions are listed in [EXTENSIONS.md](EXTENSIONS.md).
 
 ### PHP Extensions
 
